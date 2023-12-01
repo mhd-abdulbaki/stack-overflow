@@ -10,7 +10,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 // @Dev
 import "./globals.css";
-import { ThemeProvider } from "@/context/ThemeProvider";
+
+import { RootProvider } from "@/lib/providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -45,7 +46,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             },
           }}
         >
-          <ThemeProvider>{children}</ThemeProvider>
+          <RootProvider>{children}</RootProvider>
         </ClerkProvider>
       </body>
     </html>
