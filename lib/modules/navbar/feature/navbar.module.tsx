@@ -9,7 +9,7 @@ import { SignedIn, UserButton } from "@clerk/nextjs";
 //#Module
 import { ThemeModule } from "./theme.module";
 import { MobileNavModule } from "./mobile-nav.module";
-import { GlobalSearchModule } from "../../global-search";
+import { GlobalSearchModule } from "../../search";
 
 export const NavbarModule = () => {
   return (
