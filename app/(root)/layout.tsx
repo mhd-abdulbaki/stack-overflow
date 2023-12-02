@@ -1,3 +1,4 @@
+import { LeftSidebarModule } from "@/lib/modules/left-sidebar";
 import { NavbarModule } from "@/lib/modules/navbar";
 import { ReactNode } from "react";
 
@@ -10,7 +11,7 @@ const Layout = ({ children }: PropsInterface) => {
     <main className="background-light850_dark100">
       <NavbarModule />
       <div className="flex">
-        Left Sidebar
+        <LeftSidebarModule />
         <section className="flex min-h-screen flex-1 flex-col px-6 pb-6 pt-36 max-md:pb-14 sm:px-14">
           <div className="mx-auto w-full max-w-5xl">{children}</div>
         </section>
