@@ -11,6 +11,39 @@ import {
   BadgeFilterModule,
 } from "@/lib/modules/filter";
 import { LocalSearchModule } from "@/lib/modules/search";
+import { NoResultComponent } from "@/lib/shared";
+import { QuestionCardComponent } from "@/lib/modules/home";
+
+const questions = [
+  {
+    _id: "1",
+    title:
+      "The Lightning Component c:LWC_PizzaTracker generated invalid output for field status. Error How to solve this",
+    tags: [
+      { _id: "1", name: "python" },
+      { _id: "2", name: "sql" },
+    ],
+    author: { _id: "1", name: "John Deo", picture: "" },
+    upvotes: 1500000,
+    views: 50000,
+    answers: [{}],
+    createdAt: new Date("2021-09-01T00:00:00.000Z"),
+  },
+  {
+    _id: "2",
+    title:
+      "An HTML table where specific cells come from values in a Google Sheet identified by their neighboring cell",
+    tags: [
+      { _id: "1", name: "react" },
+      { _id: "2", name: "javascript" },
+    ],
+    author: { _id: "34", name: "John Smith", picture: "" },
+    upvotes: 12,
+    views: 44,
+    answers: [{}],
+    createdAt: new Date("2023-11-02T09:00:00.000Z"),
+  },
+];
 
 export default function HomePage() {
   return (
@@ -39,6 +72,33 @@ export default function HomePage() {
         />
       </div>
       <BadgeFilterModule filters={HomePageFilters} />
+
+      <div className="mt-10 flex w-full flex-col gap-6">
+        {questions.length > 0 ? (
+          questions?.map((question) => (
+            <QuestionCardComponent
+              key={question._id}
+              _id={question._id}
+              title={question.title}
+              tags={question.tags}
+              author={question.author}
+              upvotes={question.upvotes}
+              views={question.views}
+              answers={question.answers}
+              createdAt={question.createdAt}
+            />
+          ))
+        ) : (
+          <NoResultComponent
+            title="There&rsquo;s no question to show"
+            description="  Be the first to break the silence! 🚀 Ask a Question and kickstart the
+          discussion. our query could be the next big thing others learn from. Get
+          involved! 💡"
+            link="/ask-question"
+            linkTitle="Ask a Question"
+          />
+        )}
+      </div>
     </>
   );
 }

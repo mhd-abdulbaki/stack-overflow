@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { RenderTagComponent } from "../ui/render-tag.component";
+import { RenderTagComponent } from "../../../shared/ui/tags/render-tag.component";
 
 export const RightSidebarModule = () => {
   const hotQuestions = [
@@ -15,10 +15,10 @@ export const RightSidebarModule = () => {
   ];
 
   const popularTags = [
-    { _id: 1, name: "Javascript", totalQuestions: 5 },
-    { _id: 2, name: "React", totalQuestions: 836 },
-    { _id: 3, name: "Next.js", totalQuestions: 46 },
-    { _id: 4, name: "Python", totalQuestions: 52 },
+    { _id: "1", name: "Javascript", totalQuestions: 5 },
+    { _id: "2", name: "React", totalQuestions: 836 },
+    { _id: "3", name: "Next.js", totalQuestions: 46 },
+    { _id: "4", name: "Python", totalQuestions: 52 },
   ];
 
   return (
