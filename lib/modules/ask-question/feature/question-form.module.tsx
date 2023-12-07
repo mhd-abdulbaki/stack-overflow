@@ -65,7 +65,6 @@ export const QuestionFormModule = ({ userId }: IProps) => {
     setIsSubmitting(true);
 
     try {
-      // console.log(values);
       await createQuestion({
         title: values.title,
         content: values.explanation,
