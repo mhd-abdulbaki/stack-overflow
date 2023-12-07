@@ -7,7 +7,7 @@ export const QuestionFormSchema = z.object({
     .max(130, { message: "must contain at most 130 character" }),
   explanation: z
     .string()
-    .max(100, { message: "must contain at most 100 character" }),
+    .max(1000, { message: "must contain at most 100 character" }),
   tags: z
     .array(
       z

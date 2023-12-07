@@ -1,11 +1,19 @@
 "use client";
-import { KeyboardEvent, useRef, useState } from "react";
-import { Editor } from "@tinymce/tinymce-react";
 
+// @Core
+import { useRouter, usePathname } from "next/navigation";
+import { KeyboardEvent, useRef, useState } from "react";
+
+import Image from "next/image";
+
+// @Third Party
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Editor } from "@tinymce/tinymce-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+// @Dev
+// #UI
 import {
   Form,
   FormControl,
@@ -17,13 +25,24 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { QuestionFormSchema } from "../utils";
 import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
+
+//# Server Action
+import { createQuestion } from "@/lib/actions/question/question.action";
+
+// @Utils
+import { QuestionFormSchema } from "../utils";
 
 const type: any = "create";
 
-export const QuestionFormModule = () => {
+interface IProps {
+  userId: string;
+}
+
+export const QuestionFormModule = ({ userId }: IProps) => {
+  const pathname = usePathname();
+  const router = useRouter();
+
   //@Component State
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -42,12 +61,22 @@ export const QuestionFormModule = () => {
   });
 
   // #OnSubmit Handler
-  function onSubmit(values: z.infer<typeof QuestionFormSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionFormSchema>) {
     setIsSubmitting(true);
 
     try {
-      console.log(values);
+      // console.log(values);
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(userId),
+        path: pathname,
+      });
+
+      router.push("/");
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
     } finally {
       setIsSubmitting(false);
@@ -131,12 +160,13 @@ export const QuestionFormModule = () => {
                 </FormLabel>
                 <FormControl className="mt-3.5">
                   <Editor
-                    // {...field}
                     apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                     onInit={(evt, editor) => {
                       // @ts-ignore
                       editorRef.current = editor;
                     }}
+                    onBlur={field.onBlur}
+                    onEditorChange={(content) => field.onChange(content)}
                     initialValue=""
                     init={{
                       height: 350,

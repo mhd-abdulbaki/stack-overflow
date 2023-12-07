@@ -1,6 +1,6 @@
 export const getTimestamp = (createdAt: Date): string => {
   const now = new Date();
-  const diff = Math.abs(now.getTime() - createdAt.getTime());
+  const diff = Math.abs(now.getTime() - createdAt?.getTime());
 
   const timeInSeconds = Math.floor(diff / 1000);
   const timeInMinutes = Math.floor(timeInSeconds / 60);

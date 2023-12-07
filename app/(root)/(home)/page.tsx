@@ -13,39 +13,11 @@ import {
 import { LocalSearchModule } from "@/lib/modules/search";
 import { NoResultComponent } from "@/lib/shared";
 import { QuestionCardComponent } from "@/lib/modules/home";
+import { getQuestions } from "@/lib/actions/question/question.action";
 
-const questions = [
-  {
-    _id: "1",
-    title:
-      "The Lightning Component c:LWC_PizzaTracker generated invalid output for field status. Error How to solve this",
-    tags: [
-      { _id: "1", name: "python" },
-      { _id: "2", name: "sql" },
-    ],
-    author: { _id: "1", name: "John Deo", picture: "" },
-    upvotes: 1500000,
-    views: 50000,
-    answers: [{}],
-    createdAt: new Date("2021-09-01T00:00:00.000Z"),
-  },
-  {
-    _id: "2",
-    title:
-      "An HTML table where specific cells come from values in a Google Sheet identified by their neighboring cell",
-    tags: [
-      { _id: "1", name: "react" },
-      { _id: "2", name: "javascript" },
-    ],
-    author: { _id: "34", name: "John Smith", picture: "" },
-    upvotes: 12,
-    views: 44,
-    answers: [{}],
-    createdAt: new Date("2023-11-02T09:00:00.000Z"),
-  },
-];
+export default async function HomePage() {
+  const result = await getQuestions({});
 
-export default function HomePage() {
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -74,8 +46,8 @@ export default function HomePage() {
       <BadgeFilterModule filters={HomePageFilters} />
 
       <div className="mt-10 flex w-full flex-col gap-6">
-        {questions.length > 0 ? (
-          questions?.map((question) => (
+        {result?.questions && result.questions.length > 0 ? (
+          result.questions?.map((question) => (
             <QuestionCardComponent
               key={question._id}
               _id={question._id}
