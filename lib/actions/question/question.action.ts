@@ -61,6 +61,6 @@ export async function createQuestion(params: CreateQuesionParams) {
     revalidatePath(path);
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    console.log(error);
   }
 }
