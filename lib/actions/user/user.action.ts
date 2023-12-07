@@ -2,6 +2,7 @@
 
 import { User } from "@/database/user/user.model";
 import { connectToDatabase } from "../mongoose";
+import { Document } from "mongodb";
 import {
   CreateUserParams,
   DeleteUserParams,
@@ -59,20 +60,21 @@ export async function deleteUser(parmas: DeleteUserParams) {
 
     const { clerkId } = parmas;
 
-    const user = await User.findOneAndDelete({ clerkId });
+    const user: Document = await User.findOneAndDelete({ clerkId });
 
     if (!user) {
       throw new Error("User not found");
     }
 
+    // eslint-disable-next-line no-unused-vars
     const userQuestionIds = await Question.find({ author: user._id }).distinct(
       "_id"
     );
-
+    // eslint-disable-next-line no-unused-vars
     await Question.deleteMany({ author: user._id });
 
     // TODO: delete user answers, comments, etc.
-
+    // eslint-disable-next-line no-unused-vars
     const deletedUser = await User.findByIdAndDelete(user._id);
 
     return deletedUser;
