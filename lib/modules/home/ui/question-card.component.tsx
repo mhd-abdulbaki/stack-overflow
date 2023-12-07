@@ -52,9 +52,9 @@ export const QuestionCardComponent = ({
         <MetricComponent
           imgUrl="/assets/icons/avatar.svg"
           alt="user"
-          value={author.name}
+          value={author?.name}
           title={` - asked ${getTimestamp(createdAt)}`}
-          href={`/proflie/${author._id}`}
+          href={`/proflie/${author?._id}`}
           isAuthor={true}
           textStyles="body-medium text-dark400_light700"
         />
