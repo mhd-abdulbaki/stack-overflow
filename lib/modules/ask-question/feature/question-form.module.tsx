@@ -32,16 +32,17 @@ import { createQuestion } from "@/lib/actions/question/question.action";
 
 // @Utils
 import { QuestionFormSchema } from "../utils";
+import { useAppSelector } from "@/lib/store/hooks";
+import { selectUserInfo } from "../../auth/data-access";
 
 const type: any = "create";
 
-interface IProps {
-  userId: string;
-}
-
-export const QuestionFormModule = ({ userId }: IProps) => {
+export const QuestionFormModule = () => {
   const pathname = usePathname();
   const router = useRouter();
+
+  //@Selector
+  const { userInfo } = useAppSelector(selectUserInfo);
 
   //@Component State
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -69,7 +70,7 @@ export const QuestionFormModule = ({ userId }: IProps) => {
         title: values.title,
         content: values.explanation,
         tags: values.tags,
-        author: JSON.parse(userId),
+        author: userInfo.id,
         path: pathname,
       });
 

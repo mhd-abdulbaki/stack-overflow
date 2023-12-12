@@ -2,6 +2,8 @@ import { apiSlice } from "@/lib/store/api/api.slice";
 import { ISignIn, ISignUp } from "./auth.interface";
 import { setUserInfoRed } from "..";
 
+import jwt from "jsonwebtoken";
+
 export const authApiFun = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     signIn: builder.mutation({
@@ -14,7 +16,20 @@ export const authApiFun = apiSlice.injectEndpoints({
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          dispatch(setUserInfoRed({ token: data.data.token }));
+
+          const { userInfo } = jwt.decode(data.data.token) as any;
+          userInfo as {
+            id: string;
+            name: string;
+            username: string;
+            roles: string;
+          };
+          dispatch(
+            setUserInfoRed({
+              token: data.data.token,
+              userInfo: userInfo,
+            })
+          );
         } catch (err) {
           // eslint-disable-next-line no-console
           console.error(err);
@@ -37,7 +52,19 @@ export const authApiFun = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
 
-          dispatch(setUserInfoRed({ token: data.data.token }));
+          const { userInfo } = jwt.decode(data.data.token) as any;
+          userInfo as {
+            id: string;
+            name: string;
+            username: string;
+            roles: string;
+          };
+          dispatch(
+            setUserInfoRed({
+              token: data.data.token,
+              userInfo: userInfo,
+            })
+          );
         } catch (err) {
           // eslint-disable-next-line no-console
           console.error(err);

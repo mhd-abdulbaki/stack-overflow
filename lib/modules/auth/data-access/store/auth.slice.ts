@@ -2,12 +2,22 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface IUserInfo {
   token: string | null;
-  avatar?: string | null;
+  userInfo: {
+    id: string;
+    name: string;
+    username: string;
+    roles: string;
+  };
 }
 
 const initialState: IUserInfo = {
   token: null,
-  avatar: null,
+  userInfo: {
+    id: "",
+    name: "",
+    username: "",
+    roles: "string",
+  },
 };
 
 const authSlice = createSlice({
@@ -17,7 +27,7 @@ const authSlice = createSlice({
     resetAuthSlice: () => initialState,
     setUserInfoRed: (state, action: PayloadAction<IUserInfo>) => {
       state.token = action.payload.token;
-      state.avatar = action.payload.avatar;
+      state.userInfo = action.payload.userInfo;
     },
   },
 });
