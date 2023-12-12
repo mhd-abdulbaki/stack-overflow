@@ -5,11 +5,9 @@ import { Inter, Space_Grotesk } from "next/font/google";
 // #Types
 import type { Metadata } from "next";
 
-// @Thard Party
-import { ClerkProvider } from "@clerk/nextjs";
-
 // @Dev
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import { RootProvider } from "@/lib/providers";
 
@@ -38,16 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
-        <ClerkProvider
-          appearance={{
-            elements: {
-              formButtonPrimary: "primary-gradient",
-              footerActionLink: "primary-text-gradient hover:text-primary-500",
-            },
-          }}
-        >
-          <RootProvider>{children}</RootProvider>
-        </ClerkProvider>
+        <RootProvider>{children}</RootProvider>
       </body>
     </html>
   );

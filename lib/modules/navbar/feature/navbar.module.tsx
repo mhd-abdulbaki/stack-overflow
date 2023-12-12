@@ -2,14 +2,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-//@Third Party
-import { SignedIn, UserButton } from "@clerk/nextjs";
-
 //@Dev
 //#Module
 import { ThemeModule } from "./theme.module";
 import { MobileNavModule } from "./mobile-nav.module";
 import { GlobalSearchModule } from "../../search";
+import { IsSignInProvider } from "@/lib/providers/auth/is-sign-in.provider";
+import { UserAvatarModule } from "./user-avatar.module";
 
 export const NavbarModule = () => {
   return (
@@ -28,19 +27,9 @@ export const NavbarModule = () => {
       <GlobalSearchModule />
       <div className="flex-between gap-5">
         <ThemeModule />
-        <SignedIn>
-          <UserButton
-            afterSignOutUrl="/"
-            appearance={{
-              elements: {
-                avatarBox: "h-10 w-10",
-              },
-              variables: {
-                colorPrimary: "#ff7000",
-              },
-            }}
-          />
-        </SignedIn>
+        <IsSignInProvider control>
+          <UserAvatarModule />
+        </IsSignInProvider>
         <MobileNavModule />
       </div>
     </nav>

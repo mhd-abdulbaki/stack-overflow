@@ -4,9 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-// @Third Party
-import { SignedOut } from "@clerk/nextjs";
-
 //@Dev
 //#UI
 import { Button } from "@/components/ui/button";
@@ -19,6 +16,7 @@ import {
 
 // @utils
 import { sidebarLinks } from "../utils";
+import { IsSignInProvider } from "@/lib/providers/auth/is-sign-in.provider";
 
 export const MobileNavModule = () => {
   return (
@@ -52,7 +50,7 @@ export const MobileNavModule = () => {
             <NaveContent />
           </SheetClose>
 
-          <SignedOut>
+          <IsSignInProvider>
             <div className="mt-8 flex flex-col gap-3">
               <SheetClose asChild>
                 <Link href="/sign-in">
@@ -70,7 +68,7 @@ export const MobileNavModule = () => {
                 </Link>
               </SheetClose>
             </div>
-          </SignedOut>
+          </IsSignInProvider>
         </div>
       </SheetContent>
     </Sheet>

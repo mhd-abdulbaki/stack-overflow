@@ -5,15 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-//@ Third Party
-import { SignedOut } from "@clerk/nextjs";
-
 //@Dev
 //#UI
 import { Button } from "@/components/ui/button";
 
 //@Utils
 import { sidebarLinks } from "../../navbar/utils";
+import { IsSignInProvider } from "@/lib/providers/auth/is-sign-in.provider";
 
 export const LeftSidebarModule = () => {
   const pathname = usePathname();
@@ -53,7 +51,7 @@ export const LeftSidebarModule = () => {
         })}
       </div>
 
-      <SignedOut>
+      <IsSignInProvider>
         <div className="mt-8 flex flex-col gap-3">
           <Link href="/sign-in">
             <Button className="small-medium  btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
@@ -85,7 +83,7 @@ export const LeftSidebarModule = () => {
             </Button>
           </Link>
         </div>
-      </SignedOut>
+      </IsSignInProvider>
     </section>
   );
 };

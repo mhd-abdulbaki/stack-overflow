@@ -2,12 +2,18 @@ import { configureStore } from "@reduxjs/toolkit";
 //@Reducers
 //#Theme
 import { themeSlice } from "../modules/navbar";
+import { authSlice } from "../modules/auth/data-access";
+import { apiSlice } from "./api/api.slice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       theme: themeSlice,
+      auth: authSlice,
+      [apiSlice.reducerPath]: apiSlice.reducer,
     },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(apiSlice.middleware),
   });
 };
 
